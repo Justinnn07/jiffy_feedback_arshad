@@ -23,7 +23,7 @@ const App = () => {
       .get("https://apis.staging.jiffy.ae/vendor/api/v1/parcel")
       .then((res) => {
         const ids = res.data.parcel.map((res) => res._id);
-        if (ids.includes(id)) {
+        if (ids.includes(id[1])) {
           setWontShow(false);
         } else {
           setWontShow(true);

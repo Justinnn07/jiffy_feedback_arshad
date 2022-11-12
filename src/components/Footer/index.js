@@ -1,91 +1,48 @@
-import { Facebook, Instagram, Twitter } from "@mui/icons-material";
-import { Box, Divider } from "@mui/material";
+import { Box } from "@mui/material";
 import React from "react";
 import scooty from "../../assests/Scooty.png";
+import instagram from "../../assests/instagram.png";
+import twitter from "../../assests/twitter-logo.png";
+import fb from "../../assests/fb-logo.png";
+
 const Footer = () => {
   return (
-    <Box style={{ height: "auto" }}>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <Box>
-          <h2
-            style={{
-              color: "#545A77",
-              font: "normal normal normal 15px/24px Montserrat",
-            }}
-          >
-            Thank you,
-            <h2
-              style={{
-                color: "#131C4C",
-                opacity: "100%",
-                font: " normal normal 600 15px/24px Montserrat",
-                marginTop: -5,
-              }}
-            >
-              Team Jiffy
-            </h2>
-          </h2>
+    <Box style={{ paddingTop: 20 }}>
+      {/* eslint-disable */}
+      <div className="jthanks">
+        Thank you, <br /> <strong>Team Jiffy</strong>
+      </div>
 
-          <img src={scooty} alt="" />
-          <h3
-            style={{
-              font: "italic normal medium 14px/23px Montserrat",
-              height: 18,
-            }}
-          >
-            your needs in a Jiff…
-          </h3>
-        </Box>
-        <Box
-          style={{
-            display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "flex-end",
-          }}
-        >
-          <Box>
-            <Facebook />
-          </Box>
-          <Box>
-            <Twitter />
-          </Box>
-          <Box>
-            <Instagram />
-          </Box>
-        </Box>
-      </Box>
-      <Divider />
+      <div className="jscooter">
+        <img src={scooty} alt="Jiffy" width="86" height="86" />
+      </div>
 
-      <Box>
-        <div
-          style={{
-            font: "normal normal normal 11px/16px Montserrat",
-            fontSize: 13,
-            color: "#131C4C",
-          }}
-        >
-          <span>About Us</span> | <span>Privacy Policy</span> |{" "}
-          <span>Contact Us</span>
+      <div className="jrow">
+        <div className="jslogan">your needs in a Jiff…</div>
+        <div className="jsocial">
+          <a href="">
+            <img src={fb} alt="facebook" />
+          </a>
+          <a href="">
+            <img src={twitter} alt="twitter" />
+          </a>
+          <a href="">
+            <img src={instagram} alt="instagram" />
+          </a>
         </div>
-
-        <div
-          style={{
-            font: "Montserrat",
-            color: "#545A77",
-          }}
-        >
+      </div>
+      <div className="jfooter">
+        <div className="jlink">
+          <a href="">About Us </a> | <a href="">Privacy Policy</a> |{" "}
+          <a href="">Contact Us</a>
+        </div>
+        <p>
           This message and any associated files are intended only for the use of
           the individual or entity to which it is addressed. If you are not the
           intended recipient please delete this message and notify the sender
           immediately by return email or by calling the sender.
-        </div>
-      </Box>
+        </p>
+      </div>
     </Box>
   );
 };

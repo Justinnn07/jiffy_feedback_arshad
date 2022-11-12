@@ -1,12 +1,4 @@
-import { Grade } from "@mui/icons-material";
-import {
-  Button,
-  Container,
-  Grid,
-  Rating,
-  TextareaAutosize,
-  Typography,
-} from "@mui/material";
+import { Button, Container, Grid, Rating, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
 import Textarea from "@mui/joy/Textarea";
@@ -20,7 +12,7 @@ const MainSection = ({
   setRating,
   onClick,
 }) => {
-  const [options, setOptions] = useState([
+  const [options] = useState([
     { type: "Delivery" },
     { type: "Packaging" },
     { type: "Quality" },
@@ -114,47 +106,49 @@ const MainSection = ({
           </Box>
         </Container>
       </Box>
-      <Box sx={{ marginTop: 3, background: "#FAF6EA", padding: 5 }}>
-        <h3
-          style={{
-            color: "#131C4C",
-            font: "normal normal 600 16px/23px Montserrat",
-            textAlign: "center",
-          }}
-        >
-          Anything in particular?
-        </h3>
+      {rating <= 3 && rating !== 0 && rating !== undefined && (
+        <Box sx={{ marginTop: 3, background: "#FAF6EA", padding: 5 }}>
+          <h3
+            style={{
+              color: "#131C4C",
+              font: "normal normal 600 16px/23px Montserrat",
+              textAlign: "center",
+            }}
+          >
+            Anything in particular?
+          </h3>
 
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-around",
-            flexWrap: "wrap",
-          }}
-        >
-          {options.map((res, index) => (
-            <div
-              key={index}
-              style={{
-                border: "1px solid #858793",
-                padding: 10,
-                borderRadius: 10,
-                font: "normal normal 16px/23px Montserrat",
-                color: type === res.type ? "black" : "#858793",
-                width: "auto",
-                textAlign: "center",
-                marginTop: 10,
-                cursor: "pointer",
-                background: type === res.type ? "#DBA41F" : null,
-              }}
-              onClick={() => setType(res.type)}
-            >
-              {res.type}
-            </div>
-          ))}
-        </div>
-      </Box>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-around",
+              flexWrap: "wrap",
+            }}
+          >
+            {options.map((res, index) => (
+              <div
+                key={index}
+                style={{
+                  border: "1px solid #858793",
+                  padding: 10,
+                  borderRadius: 10,
+                  font: "normal normal 16px/23px Montserrat",
+                  color: type === res.type ? "black" : "#858793",
+                  width: "auto",
+                  textAlign: "center",
+                  marginTop: 10,
+                  cursor: "pointer",
+                  background: type === res.type ? "#DBA41F" : null,
+                }}
+                onClick={() => setType(res.type)}
+              >
+                {res.type}
+              </div>
+            ))}
+          </div>
+        </Box>
+      )}
 
       <Box sx={{ marginTop: 3, background: "#FAF6EA", padding: 5 }}>
         <h3

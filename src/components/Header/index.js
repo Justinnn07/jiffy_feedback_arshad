@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import logo from "../../assests/giffy_logo.png";
+import moment from "moment";
 
 function Header() {
   return (
@@ -21,7 +22,7 @@ function Header() {
               fontFamily: "'Montserrat', sans-serif",
             }}
           >
-            04th Nov, 2022
+            {moment(Date.now()).format("Do MMM, YYYY")}
           </Typography>
         </Toolbar>
       </AppBar>

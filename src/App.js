@@ -13,8 +13,8 @@ const App = () => {
   const [type, setType] = useState("");
   const [rating, setRating] = useState(0);
   const [wontShow, setWontShow] = useState(false);
+  const [currentData, setCurrentData] = useState({});
 
-  console.log(wontShow);
   const url = new URL(window.location);
   const id = url.pathname.split("/");
 
@@ -25,11 +25,17 @@ const App = () => {
         const ids = res.data.parcel.map((res) => res._id);
         if (ids.includes(id[1])) {
           setWontShow(false);
+          setCurrentData(
+            res.data.parcel.filter((res) => res._id === id[1])[0].pickup[0]
+          );
         } else {
           setWontShow(true);
         }
       });
-  }, [id]);
+    //eslint-disable-next-line
+  }, []);
+
+  console.log(process.env);
 
   const submit = () => {
     axios
@@ -88,6 +94,9 @@ const App = () => {
 
   return (
     <Box>
+      {process.env.NODE_ENV === "development"
+        ? process.env.REACT_APP_DEV_MODE
+        : process.env.REACT_APP_PRO_MODE}
       <Header />
       <div
         style={{
@@ -111,6 +120,7 @@ const App = () => {
             setType={setType}
             review={review}
             onClick={submit}
+            userName={currentData?.pickUpName}
           />
           <Footer />
         </Container>

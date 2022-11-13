@@ -11,6 +11,7 @@ const MainSection = ({
   rating,
   setRating,
   onClick,
+  userName,
 }) => {
   const [options] = useState([
     { type: "Delivery" },
@@ -26,7 +27,7 @@ const MainSection = ({
           font: "normal normal bold 20px/23px Montserrat",
         }}
       >
-        Hello Arshad,
+        Hello {userName && userName},
       </h3>
       <div>
         <h3

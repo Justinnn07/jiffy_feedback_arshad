@@ -7,96 +7,100 @@ import MainSection from "./components/MainSection";
 import { Container } from "@mui/material";
 import Footer from "./components/Footer";
 import axios from "axios";
+import config from "./config/config.json";
 
 const App = () => {
   const [review, setReview] = useState("");
   const [type, setType] = useState("");
   const [rating, setRating] = useState(0);
   const [wontShow, setWontShow] = useState(false);
-  const [currentData, setCurrentData] = useState({});
+  const [currentData, setCurrentData] = useState("");
 
   const url = new URL(window.location);
   const id = url.pathname.split("/");
 
   useEffect(() => {
-    axios
-      .get("https://apis.staging.jiffy.ae/vendor/api/v1/parcel")
-      .then((res) => {
-        const ids = res.data.parcel.map((res) => res._id);
-        if (ids.includes(id[1])) {
-          setWontShow(false);
-          setCurrentData(
-            res.data.parcel.filter((res) => res._id === id[1])[0].pickup[0]
-          );
-        } else {
-          setWontShow(true);
-        }
-      });
+    axios.get(config.parcel_api).then((res) => {
+      const ids = res.data.parcel.map((res) => res._id);
+
+      console.log(res.data);
+      if (ids.includes(id[1])) {
+        setWontShow(false);
+        const userId = res.data.parcel.filter((res) => res._id === id[1])[0]
+          .userId;
+        axios
+          .get(
+            `https://apis.staging.jiffy.ae/vendor/api/v1/corporateuser?_id=${userId}`
+          )
+          .then((res) => {
+            setCurrentData(res.data.vendors_collection[0].name);
+            // console.log(res.data);
+          });
+        // [0].pickup[0]
+      } else {
+        setWontShow(true);
+      }
+    });
     //eslint-disable-next-line
   }, []);
 
   console.log(process.env);
 
   const submit = () => {
-    axios
-      .get("https://apis.staging.jiffy.ae/vendor/api/v1/parcel")
-      .then((res) => {
-        const aParticularData = res.data.parcel.filter(
-          (res) => res._id === id[1]
-        )[0];
+    axios.get(config.parcel_api).then((res) => {
+      const aParticularData = res.data.parcel.filter(
+        (res) => res._id === id[1]
+      )[0];
 
-        const ObjVals = Object.keys(aParticularData).includes(
-          ("customer_rating" && "customer_comment" && "customer_concern") ||
-            ("user_rating" && "user_comment" && "user_concern")
-        );
-        if (id[2] === "customer") {
-          if (ObjVals === false) {
-            axios
-              .put("https://apis.staging.jiffy.ae/vendor/api/v1/parcel", {
-                _id: id[1],
-                customer_rating: rating,
-                customer_comment: review,
-                customer_concern: type,
-              })
-              .then((res) => {
-                console.log(res.data);
-                if (res.data.status === "Success") {
-                  alert(res.data.status);
-                } else {
-                  alert(res.data.ERROR);
-                }
-              });
-          } else {
-            alert("Already Submitted");
-          }
+      const ObjVals = Object.keys(aParticularData).includes(
+        ("customer_rating" && "customer_comment" && "customer_concern") ||
+          ("user_rating" && "user_comment" && "user_concern")
+      );
+      if (id[2] === "customer") {
+        if (ObjVals === false) {
+          axios
+            .put(config.parcel_api, {
+              _id: id[1],
+              customer_rating: rating,
+              customer_comment: review,
+              customer_concern: type,
+            })
+            .then((res) => {
+              console.log(res.data);
+              if (res.data.status === "Success") {
+                alert(res.data.status);
+              } else {
+                alert(res.data.ERROR);
+              }
+            });
         } else {
-          if (ObjVals === false) {
-            axios
-              .put("https://apis.staging.jiffy.ae/vendor/api/v1/parcel", {
-                _id: id[1],
-                user_rating: rating,
-                user_comment: review,
-                user_concern: type,
-              })
-              .then((res) => {
-                if (res.data.status === "success") {
-                  alert(res.data.status);
-                } else {
-                  alert(res.data.ERROR);
-                }
-              });
-          } else {
-            alert("Already Submitted");
-          }
+          alert("Already Submitted");
         }
-      });
+      } else {
+        if (ObjVals === false) {
+          axios
+            .put(config.parcel_api, {
+              _id: id[1],
+              user_rating: rating,
+              user_comment: review,
+              user_concern: type,
+            })
+            .then((res) => {
+              if (res.data.status === "success") {
+                alert(res.data.status);
+              } else {
+                alert(res.data.ERROR);
+              }
+            });
+        } else {
+          alert("Already Submitted");
+        }
+      }
+    });
   };
 
   return (
     <Box>
-      {process.env.NODE_ENV === "development"
-        ? process.env.REACT_APP_DEV_MODE
-        : process.env.REACT_APP_PRO_MODE}
       <Header />
       <div
         style={{
@@ -120,7 +124,7 @@ const App = () => {
             setType={setType}
             review={review}
             onClick={submit}
-            userName={currentData?.pickUpName}
+            userName={currentData}
           />
           <Footer />
         </Container>

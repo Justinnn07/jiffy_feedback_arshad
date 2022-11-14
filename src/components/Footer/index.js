@@ -33,8 +33,9 @@ const Footer = () => {
       </div>
       <div className="jfooter">
         <div className="jlink">
-          <a href="">About Us </a> | <a href="">Privacy Policy</a> |{" "}
-          <a href="">Contact Us</a>
+          <a href="https://jiffy.ae/">About Us </a> |{" "}
+          <a href="https://jiffy.ae/">Privacy Policy</a> |{" "}
+          <a href="https://jiffy.ae/">Contact Us</a>
         </div>
         <p>
           This message and any associated files are intended only for the use of

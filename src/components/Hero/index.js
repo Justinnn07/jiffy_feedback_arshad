@@ -1,10 +1,6 @@
 import { Box, Grid } from "@mui/material";
-import { Container } from "@mui/system";
 import React from "react";
-// import {makeStyles} from '@mui/styles'
 import heroImg from "../../assests/hero.png";
-
-// const styles = makeStyles(() => ({}));
 
 function Hero() {
   return (

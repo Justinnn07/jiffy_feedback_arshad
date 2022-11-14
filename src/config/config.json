@@ -1,0 +1,4 @@
+{
+    "parcel_api": "https://apis.staging.jiffy.ae/vendor/api/v1/parcel",
+    "userName_api": "https://apis.staging.jiffy.ae/vendor/api/v1/corporateuser"
+}

@@ -41,14 +41,10 @@ const App = () => {
           setShowError(ObjVals);
         }
 
-        axios
-          .get(
-            `https://apis.staging.jiffy.ae/vendor/api/v1/corporateuser?_id=${userId}`
-          )
-          .then((res) => {
-            setCurrentData(res.data.vendors_collection[0].name);
-            // console.log(res.data);
-          });
+        axios.get(config.userName_api`?_id=${userId}`).then((res) => {
+          setCurrentData(res.data.vendors_collection[0].name);
+          // console.log(res.data);
+        });
         // [0].pickup[0]
       } else {
         setShowError(true);

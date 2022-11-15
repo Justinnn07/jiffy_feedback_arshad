@@ -15,6 +15,7 @@ const App = () => {
   const [rating, setRating] = useState(0);
   const [wontShow, setWontShow] = useState(false);
   const [currentData, setCurrentData] = useState("");
+  const [showError, setShowError] = useState(false);
 
   const url = new URL(window.location);
   const id = url.pathname.split("/");
@@ -23,11 +24,23 @@ const App = () => {
     axios.get(config.parcel_api).then((res) => {
       const ids = res.data.parcel.map((res) => res._id);
 
-      console.log(res.data);
       if (ids.includes(id[1])) {
         setWontShow(false);
         const userId = res.data.parcel.filter((res) => res._id === id[1])[0]
           .userId;
+
+        const ObjVals = Object.keys(
+          res.data.parcel.filter((res) => res._id === id[1])[0]
+        ).includes(
+          ("customer_rating" && "customer_comment" && "customer_concern") ||
+            ("user_rating" && "user_comment" && "user_concern")
+        );
+
+        if (!ObjVals) {
+          setWontShow(true);
+          setShowError(ObjVals);
+        }
+
         axios
           .get(
             `https://apis.staging.jiffy.ae/vendor/api/v1/corporateuser?_id=${userId}`
@@ -38,13 +51,12 @@ const App = () => {
           });
         // [0].pickup[0]
       } else {
+        setShowError(true);
         setWontShow(true);
       }
     });
     //eslint-disable-next-line
   }, []);
-
-  console.log(process.env);
 
   const submit = () => {
     axios.get(config.parcel_api).then((res) => {
@@ -56,8 +68,9 @@ const App = () => {
         ("customer_rating" && "customer_comment" && "customer_concern") ||
           ("user_rating" && "user_comment" && "user_concern")
       );
+
       if (id[2] === "customer") {
-        if (ObjVals === false) {
+        if (!ObjVals) {
           axios
             .put(config.parcel_api, {
               _id: id[1],
@@ -111,7 +124,11 @@ const App = () => {
       ></div>
       {wontShow ? (
         <Container>
-          <h3>Please Provide proper user / customer id</h3>
+          <h3>
+            {showError
+              ? "Please Provide proper user / customer id"
+              : "Feedback already submitted"}
+          </h3>
         </Container>
       ) : (
         <Container>

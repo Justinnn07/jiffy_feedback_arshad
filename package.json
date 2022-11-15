@@ -19,8 +19,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "dev": "set API=development && react-scripts start",
-    "prod": "set API=production && react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

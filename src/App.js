@@ -10,6 +10,7 @@ import axios from "axios";
 import config from "./config/config.json";
 
 const App = () => {
+  console.log(config);
   const [review, setReview] = useState("");
   const [type, setType] = useState("");
   const [rating, setRating] = useState(0);
@@ -43,7 +44,7 @@ const App = () => {
           setShowError(ObjVals);
         }
 
-        axios.get(config.userName_api`?_id=${userId}`).then((res) => {
+        axios.get(config.userName_api + `?_id=${userId}`).then((res) => {
           setCurrentData(res.data.vendors_collection[0].name);
           setLoading(false);
 
@@ -56,12 +57,13 @@ const App = () => {
         setLoading(false);
       }
     });
+
     //eslint-disable-next-line
   }, []);
 
-  const submit = () => {
+  const submit = async () => {
     setLoading(true);
-    axios.get(config.parcel_api).then((res) => {
+    await axios.get(config.parcel_api).then((res) => {
       const aParticularData = res.data.parcel.filter(
         (res) => res._id === id[1]
       )[0];

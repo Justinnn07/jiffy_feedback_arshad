@@ -11,6 +11,8 @@ function Hero({ setCurrentData }) {
 
   useEffect(() => {
     getParcelById(userId, setCurrentData, navigate);
+
+    // eslint-disable-next-line
   }, []);
   return (
     <Box>

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { Navigate } from "react-router-dom";
 import config from "../config/config.json";
 
 export const getParcelById = async (id, setData, Navigate, setLoading) => {

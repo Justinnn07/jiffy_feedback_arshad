@@ -9,8 +9,6 @@ import Footer from "./components/Footer";
 import { Route, Routes } from "react-router-dom";
 import NotFound from "./components/NotFound";
 import Loading from "./components/Loading";
-import config from "./config/config.json";
-import axios from "axios";
 
 const App = () => {
   const [review, setReview] = useState("");

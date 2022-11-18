@@ -15,7 +15,7 @@ export const getParcelById = async (id, setData, Navigate, setLoading) => {
     }
 
     axios.get(config.userName_api + `?_id=${mainData}`).then((resp) => {
-      const name = resp.data.vendors_collection[0].name;
+      const { name } = resp.data.vendors_collection[0];
       setData(name);
       setLoading(false);
     });

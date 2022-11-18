@@ -1,8 +1,17 @@
 import { Box, Grid } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { getParcelById } from "../../actions";
 import heroImg from "../../assests/hero.png";
 
-function Hero() {
+function Hero({ setCurrentData, setLoading }) {
+  const { userId } = useParams();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    getParcelById(userId, setCurrentData, navigate, setLoading);
+  }, []);
   return (
     <Box>
       <Grid container>

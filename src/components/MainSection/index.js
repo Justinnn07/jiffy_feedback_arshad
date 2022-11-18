@@ -2,6 +2,9 @@ import { Button, Container, Grid, Rating, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
 import Textarea from "@mui/joy/Textarea";
+import { useParams } from "react-router-dom";
+import config from "../../config/config.json";
+import axios from "axios";
 
 const MainSection = ({
   setReview,
@@ -10,8 +13,8 @@ const MainSection = ({
   type,
   rating,
   setRating,
-  onClick,
   userName,
+  setLoading,
 }) => {
   const [options] = useState([
     { type: "Delivery" },
@@ -19,8 +22,30 @@ const MainSection = ({
     { type: "Quality" },
     { type: "Others" },
   ]);
+
+  const { userId } = useParams();
+
+  const submit = () => {
+    setLoading(true);
+    axios
+      .put(config.parcel_api, {
+        _id: userId,
+        user_rating: rating,
+        user_comment: review,
+        user_concern: type,
+      })
+      .then((res) => {
+        if (res.data.status === "Success") {
+          alert(res.data.status);
+          setLoading(false);
+        } else {
+          alert(res.data.ERROR);
+          setLoading(false);
+        }
+      });
+  };
   return (
-    <Box style={{}}>
+    <Box>
       <h3
         style={{
           fontSize: 20,
@@ -202,7 +227,7 @@ const MainSection = ({
             borderRadius: 2,
           }}
           size="large"
-          onClick={onClick}
+          onClick={submit}
         >
           Submit Your Feedback
         </Button>

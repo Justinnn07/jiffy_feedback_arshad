@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getParcelById } from "../../actions";
 import heroImg from "../../assests/hero.png";
 
-function Hero({ setCurrentData, setLoading }) {
+function Hero({ setCurrentData }) {
   const { userId } = useParams();
 
   const navigate = useNavigate();
